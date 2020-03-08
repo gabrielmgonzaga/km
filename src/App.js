@@ -3,6 +3,9 @@ import React from 'react';
 // api
 import { PeopleApi } from './services/PeopleApi.js';
 
+// background image
+import backgroundImage from './images/background.jpg'
+
 // style
 import styled from 'styled-components';
 import './App.scss';
@@ -40,21 +43,38 @@ export default class App extends React.Component {
   }
 
   handleChange = (val) => {
-    
+
+    if (val.target.value === 'No Filter') {
+      this.setState({
+        people: this.state.people
+      })
+    }
+
+    if (val.target.value === 'Male') {
+      this.setState({
+        people: this.state.people.filter(i => i.gender === 'male')
+      })
+    }
+
+    if (val.target.value === 'Female') {
+      this.setState({
+        people: this.state.people.filter(i => i.gender === 'female')
+      })
+    }
   }
 
   renderPeople = () => {
     if(this.state.people) {
-      return this.state.people.map((person) => (
-          <div key={person.email} className="card-wrapper">
-            <img style={{ height: 90 }} src={require('./images/background.jpg')} />
+      return this.state.people.map(({ email, picture, name, gender }) => (
+          <div key={email} className="card-wrapper">
+            <img style={{ height: 90 }} src={backgroundImage} />
             <div className="person">
-              <img src={person.picture.large} alt=""/>
+              <img src={picture.large} alt=""/>
               <div className="name">
-                { `${person.name.first} ${person.name.last}` }
+                { `${name.first} ${name.last}` }
               </div>
               <div className="gender">
-                { person.gender }
+                { `${gender.charAt(0).toUpperCase()}${gender.slice(1)}`}
               </div>
               <a href="!#">Connect</a>
             </div>
