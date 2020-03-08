@@ -23,8 +23,8 @@ export default class App extends React.Component {
   componentDidMount = () => {
     this.fetchPeople()
 
-    // Fetches new people every 5seconds
-    // this.interval = setInterval(() => this.fetchPeople(), 5000);
+    // Fetches new people every 5 seconds
+    this.interval = setInterval(() => this.fetchPeople(), 5000);
   }
 
   fetchPeople = async () => {
