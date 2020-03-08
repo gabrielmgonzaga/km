@@ -21,7 +21,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount = () => {
-    this.fetchPeople();
+    this.fetchPeople()
+
+    // Fetches new people every 5seconds
+    this.interval = setInterval(() => this.fetchPeople(), 5000);
   }
 
   fetchPeople = async () => {
@@ -36,13 +39,14 @@ export default class App extends React.Component {
   }
 
   handleChange = (val) => {
-
+    
   }
 
   renderPeople = () => {
     if(this.state.people) {
       return this.state.people.map((person) => (
-          <div>
+          <div key={person.email}>
+            {console.log(person)}
             <img src={person.picture.medium} alt=""/>
             <div>
               { `${person.name.first} ${person.name.last}` }
@@ -64,6 +68,7 @@ export default class App extends React.Component {
         </SelectContainer>
 
         { this.renderPeople() }
+
       </div>
     );
   }
