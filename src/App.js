@@ -63,10 +63,18 @@ export default class App extends React.Component {
     }
   }
 
+  deleteCard = (i) => {
+    this.state.people.splice(i, 1)
+    this.setState({
+      people: this.state.people
+    })
+  }
+
   renderPeople = () => {
     if(this.state.people) {
-      return this.state.people.map(({ email, picture, name, gender }) => (
-          <div key={email} className="card-wrapper">
+      return this.state.people.map(({ picture, name, gender }, i) => (
+          <div key={i} className="card-wrapper">
+            <a className="close-icon" onClick={ () => this.deleteCard(i) } href="#">X</a>
             <img style={{ height: 90 }} src={backgroundImage} />
             <div className="person">
               <img src={picture.large} alt=""/>
@@ -76,7 +84,7 @@ export default class App extends React.Component {
               <div className="gender">
                 { `${gender.charAt(0).toUpperCase()}${gender.slice(1)}`}
               </div>
-              <a href="!#">Connect</a>
+              <a className="connect" href="#">Connect</a>
             </div>
           </div>
       ));
